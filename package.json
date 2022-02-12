@@ -17,9 +17,13 @@
   "author": "Mohamed Gamal Mohamed",
   "license": "ISC",
   "dependencies": {
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jasmine": "^3.99.0",
     "morgan": "^1.10.0",
+    "pg": "^8.7.3",
     "sharp": "^0.29.3",
     "supertest": "^6.2.2"
   },
@@ -28,6 +32,7 @@
     "@types/jasmine": "^3.10.2",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.21",
+    "@types/pg": "^8.6.4",
     "@types/sharp": "^0.29.5",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
@@ -37,11 +42,11 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.5",
-    "jasmine-spec-reporter": "^7.0.0"
+    "typescript": "^4.5.5"
   }
 }
