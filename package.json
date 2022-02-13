@@ -17,6 +17,7 @@
   "author": "Mohamed Gamal Mohamed",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.1",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.0",

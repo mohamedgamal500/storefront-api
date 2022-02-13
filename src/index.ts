@@ -1,6 +1,7 @@
+import bodyParser from 'body-parser'
 import express, { Application, Request, Response } from 'express'
 import logger from 'morgan'
-import client from './database'
+import products from './handlers/products'
 
 
 const PORT = 5000
@@ -8,20 +9,12 @@ const app: Application = express()
 
 app.use(logger('dev'))
 
-app.get('/', async (req: Request, res: Response) => {
-  try {
-    const conn = await client.connect()
-    const sql = 'SELECT * FROM products'
-    const result = await conn.query(sql)
-    conn.release()
-    console.log(result.rows)
-    res.send(result.rows)
+app.use(bodyParser.json());
 
-  }
-  catch (err) {
-    console.log(err)
-    res.send(err)
-  }
+app.use('/products', products);
+
+app.get('/', (req: Request, res: Response) => {
+  res.send("storefront api")
 })
 
 
