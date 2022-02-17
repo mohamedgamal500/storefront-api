@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express'
+import client from '../database'
 import UserStore from '../models/user'
+import bcrypt from 'bcrypt'
 
 const users = Router()
 const userStore = new UserStore()
@@ -30,7 +32,25 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { firstName, lastName, email, password } = req.body
   try {
-    const user = await userStore.create(firstName, lastName, email, password)
+    // check if user exist then throw an error
+    const sql = 'SELECT * from users WHERE email=($1)'
+    const conn = await client.connect()
+    const result = await conn.query(sql, [email])
+    conn.release()
+    if (result.rows.length > 0) {
+      res.status(401).send("this user already exist")
+      return
+    }
+
+    // hash user password by bcrypt
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds)
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    // save the user to the database
+    const user = await userStore.create(firstName, lastName, email, hashedPassword)
+    // generate the token
+
     res.send(user)
   } catch (err) {
     res.status(500)
