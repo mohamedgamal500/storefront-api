@@ -1,7 +1,6 @@
 import ProductStore from '../models/product';
 
 
-
 const productStore = new ProductStore();
 
 describe('Product Model', () => {
