@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express'
 import client from '../database'
 import UserStore from '../models/user'
 import bcrypt from 'bcrypt'
+import generateJwtHandler from '../jwt'
 
 const users = Router()
 const userStore = new UserStore()
@@ -32,7 +33,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { firstName, lastName, email, password } = req.body
   try {
-    // check if user exist then throw an error
+    // check if user exist then throw an error and return
     const sql = 'SELECT * from users WHERE email=($1)'
     const conn = await client.connect()
     const result = await conn.query(sql, [email])
@@ -50,8 +51,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     // save the user to the database
     const user = await userStore.create(firstName, lastName, email, hashedPassword)
     // generate the token
-
-    res.send(user)
+    delete user['password'];
+    const token = generateJwtHandler(user)
+    res.send(token)
   } catch (err) {
     res.status(500)
     res.send(`Could not create new user ${firstName}. Error: ${err}`)
