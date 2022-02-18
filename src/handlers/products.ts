@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import verifyToken from '../middleware/auth'
 import ProductStore from '../models/product'
 
 const products = Router()
@@ -41,6 +42,6 @@ export const addProduct = async (req: Request, res: Response): Promise<void> => 
 
 products.get('/', getAllProducts)
 products.get('/:id', getProduct)
-products.post('/', addProduct)
+products.post('/', verifyToken, addProduct)
 
 export default products

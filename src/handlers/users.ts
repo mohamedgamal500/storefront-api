@@ -3,6 +3,7 @@ import client from '../database'
 import UserStore from '../models/user'
 import bcrypt from 'bcrypt'
 import generateJwtHandler from '../jwt'
+import verifyToken from '../middleware/auth'
 
 const users = Router()
 const userStore = new UserStore()
@@ -91,8 +92,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
-users.get('/', getAllUsers)
-users.get('/:id', getUser)
+users.get('/', verifyToken, getAllUsers)
+users.get('/:id', verifyToken, getUser)
 users.post('/register', register)
 users.post('/login', login)
 
