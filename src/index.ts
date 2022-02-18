@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser'
 import express, { Application, Request, Response } from 'express'
 import logger from 'morgan'
+import orders from './handlers/orders'
 import products from './handlers/products'
 import users from './handlers/users'
 
@@ -11,6 +12,7 @@ app.use(logger('dev'))
 
 app.use(bodyParser.json())
 
+app.use('/orders', orders)
 app.use('/products', products)
 app.use('/users', users)
 
