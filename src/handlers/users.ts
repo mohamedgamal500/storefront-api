@@ -64,7 +64,26 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 export const login = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body
   try {
-    res.send({ email, password })
+    // check if user does not exist then throw an error and return
+    const sql = 'SELECT * from users WHERE email=($1)'
+    const conn = await client.connect()
+    const result = await conn.query(sql, [email])
+    conn.release()
+    if (result.rows.length === 0) {
+      res.status(401).send(`incorrect info to login`)
+      return
+    }
+
+    // check if password same as stored hashed password in db
+    const correctPassword = await bcrypt.compare(password, result.rows[0].password)
+    if (!correctPassword) {
+      res.status(401).send(`incorrect info to login`)
+      return
+    }
+
+    // generate the token
+    const token = generateJwtHandler(result.rows[0])
+    res.send(token)
   } catch (err) {
     res.status(500)
     res.send(`Could not login. Error: ${err}`)
