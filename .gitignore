@@ -1,6 +1,5 @@
 node_modules
 build
 .vscode
-database.json
 .env
 yarn.lock

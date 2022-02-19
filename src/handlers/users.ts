@@ -32,7 +32,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 }
 
 export const register = async (req: Request, res: Response): Promise<void> => {
-  const { firstName, lastName, email, password } = req.body
+  const { firstname, lastname, email, password } = req.body
   try {
     // check if user exist then throw an error and return
     const sql = 'SELECT * from users WHERE email=($1)'
@@ -50,15 +50,15 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     const hashedPassword = await bcrypt.hash(password, salt)
 
     // save the user to the database
-    const user = await userStore.create(firstName, lastName, email, hashedPassword)
+    const user = await userStore.create(firstname, lastname, email, hashedPassword)
     // generate the token
     delete user['password'];
     const token = generateJwtHandler(user)
     res.send(token)
   } catch (err) {
     res.status(500)
-    res.send(`Could not create new user ${firstName}. Error: ${err}`)
-    console.log(`Could not create new user ${firstName}. Error: ${err}`)
+    res.send(`Could not create new user ${firstname}. Error: ${err}`)
+    console.log(`Could not create new user ${firstname}. Error: ${err}`)
   }
 }
 
