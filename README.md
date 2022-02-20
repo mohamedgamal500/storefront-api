@@ -26,3 +26,23 @@ For making store api with routes users, products, orders and using JWT to authen
   DB_ENV={ dev -when working on dev db / test -when working on test db}
 
   ```
+
+- connect to the postgres sql:
+
+1. `create user`
+
+```CREATE USER yourusername WITH PASSWORD 'yourpassword';
+
+```
+
+2. `create db`
+   ```CREATE DATABASE store_db;
+      CREATE DATABASE store_db_test;
+   ```
+
+````
+
+3. `grant all db privileges in both db`
+ ```GRANT ALL PRIVILEGES ON DATABASE store_db TO yourusername;
+    GRANT ALL PRIVILEGES ON DATABASE store_db_test TO yourusername;
+````
