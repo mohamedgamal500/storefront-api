@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx tsc && jasmine",
-    "test-db": "db-migrate up && DB_ENV=test npx tsc && jasmine; db-migrate reset",
+    "test": "db-migrate -e test up && npx tsc && jasmine; db-migrate reset",
     "start:dev": "nodemon --watch './**/*.ts' --exec 'ts-node' ./src/index.ts",
     "clean": "rimraf build/",
     "build": "npm run clean && npx tsc",
