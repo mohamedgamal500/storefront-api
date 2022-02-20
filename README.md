@@ -31,18 +31,23 @@ For making store api with routes users, products, orders and using JWT to authen
 
 1. `create user`
 
-```CREATE USER yourusername WITH PASSWORD 'yourpassword';
+   ```
+    CREATE USER yourusername WITH PASSWORD 'yourpassword';
 
-```
-
-2. `create db`
-   ```CREATE DATABASE store_db;
-      CREATE DATABASE store_db_test;
    ```
 
-````
+2. `create db`
+
+   ```
+      CREATE DATABASE store_db;
+      CREATE DATABASE store_db_test;
+
+   ```
 
 3. `grant all db privileges in both db`
- ```GRANT ALL PRIVILEGES ON DATABASE store_db TO yourusername;
-    GRANT ALL PRIVILEGES ON DATABASE store_db_test TO yourusername;
-````
+
+```
+   GRANT ALL PRIVILEGES ON DATABASE store_db TO yourusername;
+   GRANT ALL PRIVILEGES ON DATABASE store_db_test TO yourusername;
+
+```
