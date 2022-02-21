@@ -25,4 +25,14 @@ describe('User Model', () => {
     });
 
 
+    it('test get all users', async () => {
+        const createdUser = await userStore.create('fadi', 'mohsen', 'fadi@gmail.com', 'pass14334');
+        const users = await userStore.index();
+        expect(users).toContain(createdUser);
+    });
+
+
+
+
+
 });

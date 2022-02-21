@@ -16,4 +16,9 @@ describe('Test endpoint response', () => {
     expect(negativeResponse.status).toBe(404)
   })
 
+  it('test endpoint', async () => {
+    const negativeResponse = await request.get('//')
+    expect(negativeResponse.status).toBe(404)
+  })
+
 })
