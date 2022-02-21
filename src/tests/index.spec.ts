@@ -11,7 +11,7 @@ describe('Test endpoint response', () => {
   })
 
 
-  it('test users endpoint', async () => {
+  it('test products endpoint', async () => {
     const productsResponse = await request.get('/products')
     expect(productsResponse.status).toBe(200)
   })
