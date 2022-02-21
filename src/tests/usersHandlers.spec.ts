@@ -16,7 +16,6 @@ beforeAll(async () => {
                 email: 'mtest@gmail.com',
                 password: 'mpass123',
             });
-        console.log("res token", res)
         jwtToken = res.text
         console.log(jwtToken)
 
@@ -37,7 +36,7 @@ describe('User Handler', () => {
     });
 
     it('get all users should return 200 with jwt token', async () => {
-        const res = await request.get('/users/').set('Authorization', `Bearer ${jwtToken}`);
+        const res = await request.get('/users').auth(jwtToken, { type: 'bearer' });
         expect(res.status).toBe(200);
     });
 

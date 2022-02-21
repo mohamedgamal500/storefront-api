@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
-    const jwtToken = req.header("token");
+    const { authorization } = req.headers;
+    const jwtToken = authorization?.split(' ')[1];
 
     // if there is no token
     if (!jwtToken) {
